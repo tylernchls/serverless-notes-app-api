@@ -19,6 +19,8 @@ export function main(event, context, callback) {
   };
 
   dynamoDb.put(params, (error, data) => {
+  console.log('data', params)
+    
     const headers = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Credentials": true
