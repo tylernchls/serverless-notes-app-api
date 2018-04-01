@@ -72,20 +72,20 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./create.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./get.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./create.js":
-/*!*******************!*\
-  !*** ./create.js ***!
-  \*******************/
+/***/ "./get.js":
+/*!****************!*\
+  !*** ./get.js ***!
+  \****************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.main = undefined;\n\nvar _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ \"babel-runtime/regenerator\");\n\nvar _regenerator2 = _interopRequireDefault(_regenerator);\n\nvar _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ \"babel-runtime/helpers/asyncToGenerator\");\n\nvar _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);\n\nvar main = exports.main = function () {\n  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(event, context, callback) {\n    var data, params;\n    return _regenerator2.default.wrap(function _callee$(_context) {\n      while (1) {\n        switch (_context.prev = _context.next) {\n          case 0:\n            data = JSON.parse(event.body);\n            params = {\n              TableName: \"notes\",\n              Item: {\n                userid: event.requestContext.identity.cognitoIdentityId,\n                noteid: _uuid2.default.v1(),\n                content: data.content,\n                attachment: data.attachment,\n                createdAt: new Date().getTime()\n              }\n            };\n\n\n            console.log('params', params);\n\n            _context.prev = 3;\n            _context.next = 6;\n            return dynamoDbLib.call(\"put\", params);\n\n          case 6:\n\n            callback(null, (0, _responseLib.success)(params.Item));\n            _context.next = 12;\n            break;\n\n          case 9:\n            _context.prev = 9;\n            _context.t0 = _context[\"catch\"](3);\n\n            callback(null, (0, _responseLib.failure)({ status: false }));\n\n          case 12:\n          case \"end\":\n            return _context.stop();\n        }\n      }\n    }, _callee, this, [[3, 9]]);\n  }));\n\n  return function main(_x, _x2, _x3) {\n    return _ref.apply(this, arguments);\n  };\n}();\n\nvar _uuid = __webpack_require__(/*! uuid */ \"uuid\");\n\nvar _uuid2 = _interopRequireDefault(_uuid);\n\nvar _dynamodbLib = __webpack_require__(/*! ./libs/dynamodb-lib */ \"./libs/dynamodb-lib.js\");\n\nvar dynamoDbLib = _interopRequireWildcard(_dynamodbLib);\n\nvar _responseLib = __webpack_require__(/*! ./libs/response-lib */ \"./libs/response-lib.js\");\n\nfunction _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n//# sourceURL=webpack:///./create.js?");
+eval("\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nexports.main = undefined;\n\nvar _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ \"babel-runtime/regenerator\");\n\nvar _regenerator2 = _interopRequireDefault(_regenerator);\n\nvar _asyncToGenerator2 = __webpack_require__(/*! babel-runtime/helpers/asyncToGenerator */ \"babel-runtime/helpers/asyncToGenerator\");\n\nvar _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);\n\nvar main = exports.main = function () {\n  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(event, context, callback) {\n    var params, result;\n    return _regenerator2.default.wrap(function _callee$(_context) {\n      while (1) {\n        switch (_context.prev = _context.next) {\n          case 0:\n            params = {\n              TableName: \"notes\",\n              // 'Key' defines the partition key and sort key of the item to be retrieved\n              // - 'userId': Identity Pool identity id of the authenticated user\n              // - 'noteId': path parameter\n              Key: {\n                userid: event.requestContext.identity.cognitoIdentityId,\n                noteid: event.pathParameters.id\n              }\n            };\n\n\n            console.log('PARAMS', params);\n\n            _context.prev = 2;\n            _context.next = 5;\n            return dynamoDbLib.call(\"get\", params);\n\n          case 5:\n            result = _context.sent;\n\n            if (result.Item) {\n              // Return the retrieved item\n              callback(null, (0, _responseLib.success)(result.Item));\n            } else {\n              callback(null, (0, _responseLib.failure)({ status: false, error: \"Item not found.\" }));\n            }\n            _context.next = 12;\n            break;\n\n          case 9:\n            _context.prev = 9;\n            _context.t0 = _context[\"catch\"](2);\n\n            callback(null, (0, _responseLib.failure)({ status: false }));\n\n          case 12:\n          case \"end\":\n            return _context.stop();\n        }\n      }\n    }, _callee, this, [[2, 9]]);\n  }));\n\n  return function main(_x, _x2, _x3) {\n    return _ref.apply(this, arguments);\n  };\n}();\n\nvar _dynamodbLib = __webpack_require__(/*! ./libs/dynamodb-lib */ \"./libs/dynamodb-lib.js\");\n\nvar dynamoDbLib = _interopRequireWildcard(_dynamodbLib);\n\nvar _responseLib = __webpack_require__(/*! ./libs/response-lib */ \"./libs/response-lib.js\");\n\nfunction _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n//# sourceURL=webpack:///./get.js?");
 
 /***/ }),
 
@@ -154,17 +154,6 @@ eval("module.exports = require(\"babel-runtime/helpers/asyncToGenerator\");\n\n/
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"babel-runtime/regenerator\");\n\n//# sourceURL=webpack:///external_%22babel-runtime/regenerator%22?");
-
-/***/ }),
-
-/***/ "uuid":
-/*!***********************!*\
-  !*** external "uuid" ***!
-  \***********************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-eval("module.exports = require(\"uuid\");\n\n//# sourceURL=webpack:///external_%22uuid%22?");
 
 /***/ })
 
